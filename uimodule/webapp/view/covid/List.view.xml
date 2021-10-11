@@ -1,0 +1,23 @@
+<mvc:View controllerName="com.ct.CountdownTimer.controller.covid.List" displayBlock="true"
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:l="sap.ui.layout"
+  xmlns:core="sap.ui.core"
+height="100%">
+
+  <Page id="covid" showHeader="false">
+
+    	<List
+        headerText="Toal cases: {Latest>/data/summary/total}"
+		id="myList"
+		items="{Latest>/data/regional}">
+		<items>
+			<StandardListItem
+				title="{Latest>loc}"
+				description="{Latest>confirmedCasesIndian} cases"
+				info="{Latest>deaths} deaths" />
+		</items>
+	</List>
+
+  </Page>
+</mvc:View>
