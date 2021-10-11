@@ -1,18 +1,17 @@
 sap.ui.define([
     "com/ct/CountdownTimer/controller/BaseController",
-    "sap/ui/model/json/JSONModel"],
-    function (Controller, JSONModel) {
+    "sap/ui/model/json/JSONModel", 
+    'sap/viz/ui5/api/env/Format',
+    'sap/viz/ui5/format/ChartFormatter'],
+    function (Controller, JSONModel, Format,ChartFormatter) {
         "use strict";
 
         return Controller.extend("com.ct.CountdownTimer.controller.covid.Covid", {
-            dataPath: "test-resources/sap/viz/demokit/dataset/milk_production_testing_data/revenue_cost_consume",
+//            dataPath: "../../model/data.json",
+            dataPath : "https://api.rootnet.in/covid19-in/stats/history",
             onInit: function () {
                 Format.numericFormatter(ChartFormatter.getInstance());
                 var formatPattern = ChartFormatter.DefaultPattern;
-                // set explored app's demo model on this sample
-                var oModel = new JSONModel(this.settingsModel);
-                oModel.setDefaultBindingMode(BindingMode.OneWay);
-                this.getView().setModel(oModel);
 
                 var oVizFrame = this.oVizFrame = this.getView().byId("idVizFrame");
                 oVizFrame.setVizProperties({
@@ -37,10 +36,10 @@ sap.ui.define([
                     },
                     title: {
                         visible: false,
-                        text: 'Revenue by City and Store Name'
+                        text: 'Covid Cases History'
                     }
                 });
-                var dataModel = new JSONModel(this.dataPath + "/betterMedium.json");
+                var dataModel = new JSONModel(this.dataPath);
                 oVizFrame.setModel(dataModel);
 
                 var oPopOver = this.getView().byId("idPopOver");
@@ -48,12 +47,11 @@ sap.ui.define([
                 oPopOver.setFormatString(formatPattern.STANDARDFLOAT);
 
             },
-            oVizFrame: null,
             onPressList: function () {
-                alert("list");
+                    this.getOwnerComponent().getRouter().navTo("second-list");
             },
             onPressGraph: function () {
-                alert("graph");
+                this.getOwnerComponent().getRouter().navTo("second-pie");
             }
         });
     });
