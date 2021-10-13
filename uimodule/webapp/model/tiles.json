@@ -10,6 +10,11 @@
     {
         "title": "Vaccination Tracker",
         "route": "third"
+    },
+    {
+        "title": "Pollution Tracker",
+        "route": "EXT-third",
+        "url": "http://localhost:8081/index.html"
     }
 
 ]

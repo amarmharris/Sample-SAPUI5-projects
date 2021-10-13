@@ -9,9 +9,14 @@ sap.ui.define([
             let myTilesModel=new JSONModel("../model/tiles.json");
             this.getView().setModel(myTilesModel, "tiles")
         },
-        
+        selItem: null,
         press: function(oRoute) {
-            this.getOwnerComponent().getRouter().navTo(oRoute);
+            if(oRoute.substring(0,4)=='EXT-') {
+               var selItem =  JSON.parse(this.getView().getModel("tiles").getJSON()).find(item => {if (item.route==oRoute) {return item;}});
+               sap.m.URLHelper.redirect(selItem.url);
+            }{
+                this.getOwnerComponent().getRouter().navTo(oRoute);
+            }
         }
     });
 });
